@@ -22,17 +22,21 @@ This is a C++20 utility library that is a collection of containers, functionalit
 - Tuple: Compile-time tuplet sorting tuplet::tuple (Can be modified to support std::tuple)
 - Specialised: Check specialisation for template type
 
-**XV::Traits::Function**
+**ArrayType**
+- Concepts::String: Check if array is string-type
+- Concepts::ArrayType: Check for array type
+
+**Function**
 - Concepts::IsFunctionReturnType: Check if function's return type matches the expected type
 - Type::ReturnType: Function return type
 - Type::SignatureType: Signature of the function
 - Type::ArgsTuple: Tuple of the arguements
 - Type::args_count: count of all the arguements
 
-**XV::Traits::Specialised**
+**Specialised**
 - IsSpecialised: Check if a type is specialised from another type
 
-**XV::Traits::Tuple**
+**Tuple**
 - null: Nullptr of the tuple
 - make_null: Nullptr of the tuple created a list of arguments
 - CatType: Concatenate tuples
