@@ -1,5 +1,5 @@
 ## XVUtilities
-This is a C++20 utility library that is a collection of containers, functionality and traits that I am using with my projects.
+XVUtilities is a C++20 utility library that is a collection of containers, functionality and traits I use with my projects.
 
 ## Core 
 
@@ -41,7 +41,7 @@ This is a C++20 utility library that is a collection of containers, functionalit
 **Hashing**
 - Constexpr scalar version of XXH3
 - Provide compile-time hashing for strings and Plain-Old-Data (POD) struct
-- Intends to set-up and toggle between scalar version for compile-time and SIMD variant for runtime to increase efficiency.
+- Intends to set up and toggle between the scalar version for compile-time and SIMD variant for the runtime to increase efficiency.
 
 **Helper Class**
 - Singleton helper class 
@@ -67,14 +67,14 @@ This is a C++20 utility library that is a collection of containers, functionalit
 - make_null: Nullptr of the tuple created a list of arguments
 - CatType: Concatenate tuples
 - Decay: Apply decay to all types in the tuple
-- SortType: Sort the types in a tuple based on comparator
+- SortType: Sort the types in a tuple based on the comparator
 
 ## Containers
 **CBitset**
 - A constexpr version of std::bitset
 
 **PinnedVector**
-- A vector using VirtualAlloc, hence pointer invalidation will not happened on resizing
+- A vector using VirtualAlloc, hence pointer invalidation will not happen on resizing
 
 
 ## External Libraries
