@@ -1,27 +1,53 @@
 ## XVUtilities
 This is a C++20 utility library that is a collection of containers, functionality and traits that I am using with my projects.
 
-## List of all functionality
+## Core 
 
-**Core**
-- Types: Wrapper and aliases over base type
-- GUID: Phantom typing for UUID/GUID
-- Log: Logging functionality wrapped over spdlog
-- Typename: Extract typename in compile-time
-- Typelist: A compile-time heterogeneous container for modifying types
-- STL Container Wrapper: A wrapper over all STL
-- Event Manager: A event-based pattern
-- Service Locator: A service locator pattern
-- Singleton base class
-- NonCopyable base class
-- XXH3: A compile-time version based on the XXH3 hashing algorithm
+**Types**
+- Wrapper over built-in types, smart pointers, std::function
+- Decay: Full decay of types
+```c++
+		XV::Decay<const int &> // Decayed type is int
+```
+- IsPointer: Concepts for pointers
+- IsReference: Concepts for reference
 
-**Traits**
-- Array: Support std::array, std::vector, std::span and C-style array 
-- Function: Generate information for lambda, method, functor, function
-- Tuple: Compile-time tuplet sorting tuplet::tuple (Can be modified to support std::tuple)
-- Specialised: Check specialisation for template type
+**Typename**
+- Extract a typename in compile-time
 
+**Log**
+- Logging functionality wrapping over spdlog
+- Core and Application level logging
+
+**GUID**
+- A UUID/GUID phantom type
+
+**Enumerate**
+- Python style enumerate for C++
+
+**Typelist**
+- Compile-time heterogeneous container of types, similar to boost.Hana vector
+
+**STL_C**
+- Wrapper for each type of STL container
+- Provide easy swapping to STL-compliant containers
+
+**ServiceLocator**
+- A service locator pattern
+
+**EventManager**
+- Event-based pattern using static polymorphism
+
+**Hashing**
+- Constexpr scalar version of XXH3
+- Provide compile-time hashing for strings and Plain-Old-Data (POD) struct
+- Intends to set-up and toggle between scalar version for compile-time and SIMD variant for runtime to increase efficiency.
+
+**Helper Class**
+- Singleton helper class 
+- UnCopyable helper class
+
+## Traits
 **ArrayType**
 - Concepts::String: Check if array is string-type
 - Concepts::ArrayType: Check for array type
@@ -43,9 +69,12 @@ This is a C++20 utility library that is a collection of containers, functionalit
 - Decay: Apply decay to all types in the tuple
 - SortType: Sort the types in a tuple based on comparator
 
-**Containers**
-- CBitset: Compile time bitset
-- PinnedVector: A vector using VirtualAlloc, hence pointer invalidation will not happened on resizing
+## Containers
+**CBitset**
+- A constexpr version of std::bitset
+
+**PinnedVector**
+- A vector using VirtualAlloc, hence pointer invalidation will not happened on resizing
 
 
 ## External Libraries
