@@ -1,8 +1,10 @@
 #pragma once
 
-#include "../../Dep/spdlog/include/spdlog/spdlog.h"
-#include "../../Dep/spdlog/include/spdlog/sinks/stdout_color_sinks.h"
-#include "../../Dep/spdlog/include/spdlog/sinks/rotating_file_sink.h"
+#ifdef XV_SPDLOG
+
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/sinks/rotating_file_sink.h"
 
 #include "Types.h"
 
@@ -72,3 +74,20 @@ namespace XV
 #define XV_WARN(...) ::Xivi::Log::GetAppLogger()->warn(__VA_ARGS__)
 #define XV_ERROR(...) ::Xivi::Log::GetAppLogger()->error(__VA_ARGS__)
 #define XV_CRITICAL(...) ::Xivi::Log::GetAppLogger()->critical(__VA_ARGS__)
+
+#else
+// Core log macros
+#define XV_CORE_TRACE(...) 
+#define XV_CORE_INFO(...) 
+#define XV_CORE_WARN(...) 
+#define XV_CORE_ERROR(...) 
+#define XV_CORE_CRITICAL(...) 
+
+// Client log macros
+#define XV_TRACE(...) 
+#define XV_INFO(...) 
+#define XV_WARN(...) 
+#define XV_ERROR(...) 
+#define XV_CRITICAL(...)
+
+#endif

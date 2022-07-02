@@ -1,6 +1,6 @@
 #pragma once
-
-#include "../Containers/PinnedVector.h">
+#include <cassert>
+#include "../Containers/PinnedVector.h"
 #include "../STL_C/UnorderedMap.h"
 #include "Descriptor.h"
 
@@ -11,7 +11,7 @@ namespace XV::Event
     template <Concepts::IsEvent TEvent>
     inline void Register() noexcept
     {
-      XV_CORE_ASSERT_MSG(m_events_map.find(info<TEvent>.m_id) == m_events_map.end(), "[EventManager] Event already registered");
+      assert(m_events_map.find(info<TEvent>.m_id) == m_events_map.end());
       m_events.push_back({MakeUnique<TEvent>(), &info<TEvent>});
       m_events_map.emplace(info<TEvent>.m_id, m_events.back().first.get());
     }
@@ -20,7 +20,7 @@ namespace XV::Event
     inline TEvent &Get() noexcept
     {
       auto it = m_events_map.find(info<TEvent>.m_id);
-      XV_CORE_ASSERT_MSG(it != m_events_map.end(), "[EventManager] Event cannot be found");
+      assert(it != m_events_map.end());
       return *std::bit_cast<TEvent *>(it->second);
     }
 

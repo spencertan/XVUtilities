@@ -2,7 +2,7 @@
 
 #include "../Types.h"
 #include "../Typename.h"
-
+#include "../GUID.h"
 namespace XV::Service
 {
 

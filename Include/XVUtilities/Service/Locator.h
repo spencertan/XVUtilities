@@ -16,7 +16,7 @@ namespace XV::Service
     template <typename TService, typename... Args>
     static TService &Register(Args &&...args)
     {
-    #ifdef NDEBUG
+    #ifdef XV_DEBUG
       for (const auto &ptr : descriptors)
         assert(ptr->m_id == Service::info<TService>.m_id);
     #endif
@@ -27,7 +27,7 @@ namespace XV::Service
     template <typename TService>
     static TService &Register()
     {
-    #ifdef NDEBUG
+    #ifdef XV_DEBUG
       for (const auto &ptr : descriptors)
         assert(ptr->m_id == Service::info<TService>.m_id);
     #endif
@@ -53,8 +53,8 @@ namespace XV::Service
     {
       for (const auto &[i, ptr] : REnumerate(descriptors))
       {
-        if (ptr->m_destructor)
-          ptr->m_destructor(services[i]);
+        if (ptr->destructor)
+          ptr->destructor(services[i]);
         delete services[i];
       }
     }

@@ -3,7 +3,6 @@
 #ifdef XV_DEBUG
   #define XV_INLINE
   #define XV_FORCEINLINE
-  #define XV_ENABLE_ASSERTS
 #else
   #define XV_INLINE inline
   #define XV_FORCEINLINE __forceinline
