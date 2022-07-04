@@ -16,8 +16,8 @@ namespace XV::Event::Type
 {
   struct Global final
   {
-    ID m_id{};
-    std::string_view m_name{};
+    ID id{};
+    std::string_view name{};
   };
 }
 
@@ -36,30 +36,30 @@ namespace XV::Event
     struct Delegate final
     {
       using Callback = FuncPtr<void(Ptr<void>, Args &&...) noexcept>;
-      Callback m_callback;
-      Ptr<void> m_class;
+      Callback callback;
+      Ptr<void> object;
     };
 
   public:
     Instance() = default;
 
-    template <auto Func, typename Class>
-    inline constexpr void Register(Class &c) noexcept
+    template <auto Func, typename T>
+    inline constexpr void Register(T &obj) noexcept
     {
-      m_delegates.emplace_back(
+      delegates.emplace_back(
           [](Ptr<void> p, Args && ...args) constexpr noexcept {
-            std::invoke(Func, std::bit_cast<Class *>(p), std::forward<Args &&>(args)...);
+            std::invoke(Func, std::bit_cast<T *>(p), std::forward<Args &&>(args)...);
           },
-          &c);
+          &obj);
     }
 
     inline constexpr void Notify(Args &&...args) const noexcept
     {
-      for (auto &delegate : m_delegates)
-        delegate.m_callback(delegate.m_class, std::forward<Args &&>(args)...);
+      for (auto &delegate : delegates)
+        delegate.callback(delegate.object, std::forward<Args &&>(args)...);
     }
 
-    vector<Delegate> m_delegates;
+    vector<Delegate> delegates;
   };
 }
 

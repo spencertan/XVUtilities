@@ -7,9 +7,9 @@ namespace XV::Event
   struct Descriptor final
   {
     using Destructor = FuncPtr<void(Ptr<byte>) noexcept>;
-    Destructor m_destructor;
-    ID m_id;
-    std::string_view m_name;
+    Destructor destructor;
+    ID id;
+    std::string_view name;
   };
 }
 
@@ -19,23 +19,23 @@ namespace XV::Event::Details
   consteval Descriptor CreateDescriptor() noexcept
   {
     Descriptor descriptor;
-    if constexpr (T::info.m_id.m_value)
-      descriptor.m_id = T::info.m_id;
+    if constexpr (T::info.id.value)
+      descriptor.id = T::info.id;
     else
-      descriptor.m_id = ID(__FUNCSIG__);
+      descriptor.id = ID(__FUNCSIG__);
 
     if constexpr (std::is_trivially_destructible_v<T>)
-      descriptor.m_destructor = nullptr;
+      descriptor.destructor = nullptr;
     else
-      descriptor.m_destructor = [](Ptr<byte> p) noexcept
+      descriptor.destructor = [](Ptr<byte> p) noexcept
       {
         std::destroy_at(std::bit_cast<Ptr<T>>(p));
       };
 
-    if constexpr (T::info.m_name.empty())
-      descriptor.m_name = Typename<T>();
+    if constexpr (T::info.name.empty())
+      descriptor.name = Typename<T>();
     else
-      descriptor.m_name = T::info.m_name;
+      descriptor.name = T::info.name;
     return descriptor;
   }
 

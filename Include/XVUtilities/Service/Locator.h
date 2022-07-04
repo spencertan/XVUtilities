@@ -8,31 +8,32 @@
 namespace XV::Service
 {
 
-  struct Locator
+  class Locator
   {
-    inline static std::vector<Ptr<byte>> services;
-    inline static std::vector<Ptr<const Service::Descriptor>> descriptors;
+    inline static vector<Ptr<byte>> services;
+    inline static vector<Ptr<const Service::Descriptor>> descriptors;
 
+  public:
     template <typename TService, typename... Args>
     static TService &Register(Args &&...args)
     {
-    #ifdef XV_DEBUG
+#ifdef XV_DEBUG
       for (const auto &ptr : descriptors)
-        assert(ptr->m_id == Service::info<TService>.m_id);
-    #endif
-      descriptors.push_back( &Service::info<TService> );
-      return *std::bit_cast<Ptr<TService>>( services.emplace_back( std::bit_cast<Ptr<byte>>( new TService( std::forward<Args>( args )... ) ) ) );
+        assert(ptr->id == Service::info<TService>.id);
+#endif
+      descriptors.push_back(&Service::info<TService>);
+      return *std::bit_cast<Ptr<TService>>(services.emplace_back(std::bit_cast<Ptr<byte>>(new TService(std::forward<Args>(args)...))));
     }
 
     template <typename TService>
     static TService &Register()
     {
-    #ifdef XV_DEBUG
+#ifdef XV_DEBUG
       for (const auto &ptr : descriptors)
-        assert(ptr->m_id == Service::info<TService>.m_id);
-    #endif
-      descriptors.push_back( &Service::info<TService> );
-      return *std::bit_cast<Ptr<TService>>( services.emplace_back( std::bit_cast<Ptr<byte>>( new TService() ) ) );
+        assert(ptr->id == Service::info<TService>.id);
+#endif
+      descriptors.push_back(&Service::info<TService>);
+      return *std::bit_cast<Ptr<TService>>(services.emplace_back(std::bit_cast<Ptr<byte>>(new TService())));
     }
 
     template <typename TService>
@@ -40,11 +41,10 @@ namespace XV::Service
     {
       Ptr<TService> result{nullptr};
       for (const auto &[i, ptr] : Enumerate(descriptors))
-        if (ptr->m_id == Service::info<TService>.m_id)
+        if (ptr->id == Service::info<TService>.id)
         {
           result = std::bit_cast<Ptr<TService>>(services[i]);
-          assert(result != nullptr)
-          break;
+          assert(result != nullptr) break;
         }
       return *result;
     }

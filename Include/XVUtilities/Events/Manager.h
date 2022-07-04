@@ -6,8 +6,9 @@
 
 namespace XV::Event
 {
-  struct Manager final : NonCopyable
+  class Manager final : NonCopyable
   {
+  public:
     template <Concepts::IsEvent TEvent>
     inline void Register() noexcept
     {
@@ -26,11 +27,12 @@ namespace XV::Event
 
     ~Manager()
     {
-      for (auto& [ptr, desc] : m_events)
-        if ( desc->m_destructor )
-          desc->m_destructor(std::bit_cast<Ptr<byte>>(ptr.get()));
+      for (auto &[ptr, desc] : m_events)
+        if (desc->destructor)
+          desc->destructor(std::bit_cast<Ptr<byte>>(ptr.get()));
     }
 
+  private:
     unordered_map<ID, Ptr<Overrides>> m_events_map;
     PinnedVector<std::pair<UniquePtr<Overrides>, Ptr<const Event::Descriptor>>> m_events;
   };
