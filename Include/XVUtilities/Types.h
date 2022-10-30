@@ -30,9 +30,13 @@ namespace XV
   using u32 = std::uint32_t;
   using u64 = std::uint64_t;
 
+  inline constexpr u8 u8_min = 0;
   inline constexpr u8 u8_max = UINT8_MAX;
+  inline constexpr u16 u16_min = 0;
   inline constexpr u16 u16_max = UINT16_MAX;
+  inline constexpr u32 u32_min = 0;
   inline constexpr u32 u32_max = UINT32_MAX;
+  inline constexpr u64 u64_min = 0;
   inline constexpr u64 u64_max = UINT64_MAX;
 
   // signed
