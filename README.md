@@ -43,6 +43,10 @@ XVUtilities is a C++20 utility library that is a collection of containers, funct
 - Provide compile-time hashing for strings and Plain-Old-Data (POD) struct
 - Intends to set up and toggle between the scalar version for compile-time and SIMD variant for the runtime to increase efficiency.
 
+**Random**
+- Constexpr random version of Xoshiro256SS
+- With compile-time seed generator using source_location to generate new seed with XXH3
+
 **Helper Class**
 - Singleton helper class 
 - UnCopyable helper class
